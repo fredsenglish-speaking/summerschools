@@ -206,3 +206,5 @@ td.actions { white-space: nowrap; display: flex; gap: 14px; }
 .lang-block { border-top: 1px solid var(--line); padding-top: 12px; display: flex; flex-direction: column; gap: 14px; }
 .lang-block summary { font-weight: 700; color: var(--navy); cursor: pointer; margin-bottom: 10px; }
 .lang-block label + label, .lang-block .two { margin-top: 12px; }
+.months { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px 14px; }
+.form .months label.check span { font-size: 15px; font-weight: 500; }

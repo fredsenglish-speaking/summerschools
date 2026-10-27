@@ -38,6 +38,8 @@ export type School = {
   age_min: number;
   age_max: number;
   duration_weeks: number;
+  /** Months the school runs in, 1 = January … 12 = December. */
+  months: number[];
   price: number | null;
   currency: Currency;
   main_photo: string | null;
@@ -51,7 +53,7 @@ export type School = {
   created_at: string;
 };
 
-export type Search = { age: number | null; duration: Duration; country: "all" | Country };
+export type Search = { age: number | null; duration: Duration; country: "all" | Country; month: number | null };
 
 /** One language's text, each missing field taken from the other languages (Azerbaijani first). */
 export function localText(school: Pick<School, "i18n">, locale: Locale): LocalText {
@@ -84,10 +86,12 @@ export function parseSearch(params: Record<string, string | string[] | undefined
   const age = Number.parseInt(one(params.age), 10);
   const duration = one(params.duration);
   const country = one(params.country);
+  const month = Number.parseInt(one(params.month), 10);
   return {
     age: Number.isFinite(age) && age > 0 && age < 100 ? age : null,
     duration: (DURATIONS as readonly string[]).includes(duration) ? (duration as Duration) : "all",
     country: (COUNTRIES as readonly string[]).includes(country) ? (country as Country) : "all",
+    month: month >= 1 && month <= 12 ? month : null,
   };
 }
 
@@ -95,6 +99,7 @@ export function matches(school: School, search: Search): boolean {
   if (search.age !== null && (search.age < school.age_min || search.age > school.age_max)) return false;
   if (search.duration === "3" ? school.duration_weeks < 3 : search.duration !== "all" && school.duration_weeks !== Number(search.duration)) return false;
   if (search.country !== "all" && school.country !== search.country) return false;
+  if (search.month !== null && !(school.months ?? []).includes(search.month)) return false;
   return true;
 }
 
@@ -121,6 +126,12 @@ export function slugify(text: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
     .slice(0, 80);
+}
+
+/** The form's checked months, as sorted unique numbers 1–12. */
+export function parseMonths(values: unknown[]): number[] {
+  const months = values.map((v) => Number.parseInt(String(v), 10)).filter((m) => m >= 1 && m <= 12);
+  return [...new Set(months)].sort((a, b) => a - b);
 }
 
 /** A textarea with one item per line → the list, blank lines dropped. */

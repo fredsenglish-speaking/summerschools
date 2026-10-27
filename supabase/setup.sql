@@ -29,6 +29,7 @@ create table if not exists schools (
   age_min int not null check (age_min between 1 and 99),
   age_max int not null check (age_max between 1 and 99),
   duration_weeks int not null check (duration_weeks between 1 and 52),
+  months int[] not null default '{}',
   price numeric(10, 2) check (price >= 0),
   currency text not null default 'USD' check (currency in ('AZN', 'USD', 'EUR', 'GBP')),
   main_photo text,
@@ -48,6 +49,9 @@ drop policy if exists "anyone reads published schools" on schools;
 create policy "anyone reads published schools" on schools for select using (published or is_admin());
 drop policy if exists "admins write schools" on schools;
 create policy "admins write schools" on schools for all using (is_admin()) with check (is_admin());
+
+-- Added later; keeps older databases in step.
+alter table schools add column if not exists months int[] not null default '{}';
 
 -- Enquiries -------------------------------------------------------------
 

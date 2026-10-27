@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const ICONS = {
   ages: "M20 21a8 8 0 0 0-16 0M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
   duration: "M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM12 6v6l4 2",
+  months: "M3 5h18v16H3zM3 10h18M8 3v4M16 3v4M7 14h2M11 14h2M15 14h2",
   sessions: "M3 5h18v16H3zM3 10h18M8 3v4M16 3v4",
   meals: "M4 3v8a3 3 0 0 0 6 0V3M7 3v18M17 3c-2 0-3 2-3 6s1 5 3 5v7",
   room: "M3 18V8M3 14h18v4M21 14v-3a3 3 0 0 0-3-3h-7v6",
@@ -41,6 +42,7 @@ export default async function SchoolPage({ params }: Props) {
   const facts = [
     { key: "ages", label: t.school.ages, value: t.common.ages(school.age_min, school.age_max) },
     { key: "duration", label: t.school.duration, value: t.common.weeks(school.duration_weeks) },
+    { key: "months", label: t.school.months, value: (school.months ?? []).map((m) => t.common.months[m - 1]).join(", ") },
     { key: "sessions", label: t.school.sessions, value: sessions.join(", ") },
     { key: "meals", label: t.school.meals, value: text.meals },
     { key: "room", label: t.school.room, value: text.room },

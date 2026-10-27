@@ -98,6 +98,17 @@ export function SchoolForm({ school }: { school?: School }) {
             </select>
           </label>
         </div>
+        <div className="stack tight">
+          <span className="muted small">{t.months}</span>
+          <div className="months">
+            {tAll.common.months.map((m, i) => (
+              <label key={m} className="check">
+                <input type="checkbox" name="months" value={i + 1} defaultChecked={(school?.months ?? [6, 7, 8]).includes(i + 1)} />
+                <span>{m}</span>
+              </label>
+            ))}
+          </div>
+        </div>
         <label>
           <span>{t.slug}</span>
           <input name="slug" defaultValue={school?.slug ?? ""} pattern="[a-z0-9\-]*" />

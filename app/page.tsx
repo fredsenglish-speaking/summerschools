@@ -12,7 +12,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   const all = await listSchools();
   const found = all.filter((s) => matches(s, search));
   const banner = all.find((s) => s.tier === "premium");
-  const filtered = search.age !== null || search.duration !== "all" || search.country !== "all";
+  const filtered = search.age !== null || search.duration !== "all" || search.country !== "all" || search.month !== null;
   const countries = COUNTRIES.filter((c) => c !== "other");
 
   return (
@@ -33,6 +33,17 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
                 {DURATIONS.map((d) => (
                   <option key={d} value={d}>
                     {t.home.durations[d]}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              <span>{t.home.month}</span>
+              <select name="month" defaultValue={search.month ?? ""}>
+                <option value="">{t.home.anyMonth}</option>
+                {t.common.months.map((m, i) => (
+                  <option key={m} value={i + 1}>
+                    {m}
                   </option>
                 ))}
               </select>

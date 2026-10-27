@@ -7,7 +7,7 @@ import { getT } from "@/lib/i18n/server";
 import { LOCALES } from "@/lib/i18n";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { COUNTRIES, CURRENCIES, LIST_FIELDS, TEXT_FIELDS, TIERS, linesToList, slugify, type LocalText } from "@/lib/schools";
+import { COUNTRIES, CURRENCIES, LIST_FIELDS, TEXT_FIELDS, TIERS, linesToList, parseMonths, slugify, type LocalText } from "@/lib/schools";
 
 export type SaveState = { error?: string };
 
@@ -81,6 +81,7 @@ export async function saveSchool(_: SaveState, form: FormData): Promise<SaveStat
     age_min,
     age_max,
     duration_weeks,
+    months: parseMonths(form.getAll("months")),
     price: Number.isFinite(price) && price > 0 ? price : null,
     currency: oneOf(str(form, "currency"), CURRENCIES, "USD"),
     main_photo: mainPhoto.startsWith("https://") ? mainPhoto : null,
