@@ -37,12 +37,12 @@ const en: Dictionary = {
   },
   home: {
     stats: [
-      { value: "10+", label: "years of experience" },
+      { value: "27", label: "years of experience" },
       { value: "6", label: "destinations" },
       { value: "3", label: "languages" },
     ],
     schoolsN: (n: number) => (n ? `${n} ${n === 1 ? "school" : "schools"}` : "Coming soon"),
-    badge: "Over 10 years of experience",
+    badge: "Over 27 years of experience",
     title: "Find the right summer school for your child",
     lead: "Summer schools in the USA, London, China, Europe, Turkey and Azerbaijan. Choose your child's age and the length of stay to see matching programmes.",
     age: "Child's age",
@@ -61,7 +61,7 @@ const en: Dictionary = {
     countriesTitle: "Destinations",
     whyTitle: "Why us?",
     whyText:
-      "We have organised summer schools in Azerbaijan and abroad for over 10 years. We know every programme personally, help parents choose, and stay with the family at every step until the child flies out of Baku.",
+      "We have organised summer schools in Azerbaijan and abroad for over 27 years. We know every programme personally, help parents choose, and stay with the family at every step until the child flies out of Baku.",
     why: [
       { title: "Personal advice", text: "A choice that fits your child's age and interests" },
       { title: "Clear prices", text: "What is included and what is not, all written down" },

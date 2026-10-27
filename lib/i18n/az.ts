@@ -35,12 +35,12 @@ const az = {
   },
   home: {
     stats: [
-      { value: "10+", label: "il təcrübə" },
+      { value: "27", label: "il təcrübə" },
       { value: "6", label: "istiqamət" },
       { value: "3", label: "dildə xidmət" },
     ],
     schoolsN: (n: number) => (n ? `${n} məktəb` : "Tezliklə"),
-    badge: "10 ildən artıq təcrübə",
+    badge: "27 ildən artıq təcrübə",
     title: "Uşağınız üçün ideal yay məktəbini tapın",
     lead: "ABŞ, London, Çin, Avropa, Türkiyə və Azərbaycanda yay məktəbləri. Uşağın yaşını və müddəti seçin, uyğun proqramları dərhal görün.",
     age: "Uşağın yaşı",
@@ -59,7 +59,7 @@ const az = {
     countriesTitle: "İstiqamətlər",
     whyTitle: "Niyə biz?",
     whyText:
-      "10 ildən artıq Azərbaycanda və xaricdə yay məktəbləri təşkil edirik. Hər proqramı şəxsən tanıyırıq, valideynə seçimdə kömək edirik və uşağı Bakıdan yola salana qədər hər addımda yanındayıq.",
+      "27 ildən artıq Azərbaycanda və xaricdə yay məktəbləri təşkil edirik. Hər proqramı şəxsən tanıyırıq, valideynə seçimdə kömək edirik və uşağı Bakıdan yola salana qədər hər addımda yanındayıq.",
     why: [
       { title: "Şəxsi məsləhət", text: "Uşağın yaşına və marağına uyğun seçim" },
       { title: "Şəffaf qiymət", text: "Nə daxildir və nə daxil deyil, hamısı yazılıb" },
