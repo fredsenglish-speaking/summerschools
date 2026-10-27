@@ -6,10 +6,13 @@ import { DICTIONARIES, LOCALES } from "@/lib/i18n";
 import { useT } from "@/lib/i18n/client";
 import { shrinkImage } from "@/lib/shrinkImage";
 import { COUNTRIES, CURRENCIES, LIST_FIELDS, TEXT_FIELDS, TIERS, type School } from "@/lib/schools";
+import { submitSchool, uploadSubmissionPhoto } from "@/app/submit/actions";
 import { saveSchool, uploadPhoto, type SaveState } from "./actions";
 
+type Upload = (form: FormData) => Promise<{ url?: string; error?: string }>;
+
 /** Picks photos, shrinks and uploads each one, and reports the links back. */
-function PhotoPicker({ multiple, onAdd }: { multiple: boolean; onAdd: (urls: string[]) => void }) {
+function PhotoPicker({ multiple, upload, onAdd }: { multiple: boolean; upload: Upload; onAdd: (urls: string[]) => void }) {
   const t = useT().admin.form;
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -24,7 +27,7 @@ function PhotoPicker({ multiple, onAdd }: { multiple: boolean; onAdd: (urls: str
     for (const file of files) {
       const data = new FormData();
       data.set("file", await shrinkImage(file).catch(() => file));
-      const res = await uploadPhoto(data);
+      const res = await upload(data);
       if (res.url) urls.push(res.url);
       else setError(res.error ?? t.uploadFailed);
     }
@@ -43,25 +46,50 @@ function PhotoPicker({ multiple, onAdd }: { multiple: boolean; onAdd: (urls: str
   );
 }
 
-export function SchoolForm({ school }: { school?: School }) {
+/** The admin's school editor; with public set, the organisers' form, which saves a hidden draft. */
+export function SchoolForm({ school, public: isPublic = false }: { school?: School & { organizer_contact?: string }; public?: boolean }) {
   const tAll = useT();
   const t = tAll.admin.form;
-  const [state, action] = useActionState<SaveState, FormData>(saveSchool, {});
+  const [state, action] = useActionState<SaveState, FormData>(isPublic ? submitSchool : saveSchool, {});
+  const upload = isPublic ? uploadSubmissionPhoto : uploadPhoto;
   const [mainPhoto, setMainPhoto] = useState(school?.main_photo ?? "");
   const [gallery, setGallery] = useState<string[]>(school?.gallery ?? []);
 
+  if (state.ok) return <p className="notice ok">{tAll.submit.sent}</p>;
+
+  const organizerFields = (
+    <>
+      <label>
+        <span>{isPublic ? tAll.submit.company : t.organizer}</span>
+        <input name="organizer" defaultValue={school?.organizer ?? ""} required={isPublic} maxLength={200} />
+      </label>
+      <label>
+        <span>{t.organizerContact}</span>
+        <input name="organizer_contact" defaultValue={school?.organizer_contact ?? ""} required={isPublic} maxLength={500} />
+      </label>
+    </>
+  );
+
   return (
     <form action={action} className="form admin-form">
+      {isPublic && (
+        <fieldset>
+          <legend>{tAll.submit.contactTitle}</legend>
+          <div className="two">{organizerFields}</div>
+        </fieldset>
+      )}
       {school && <input type="hidden" name="id" value={school.id} />}
       <input type="hidden" name="main_photo" value={mainPhoto} />
       <input type="hidden" name="gallery" value={JSON.stringify(gallery)} />
 
       <fieldset>
         <legend>{t.basics}</legend>
-        <label className="check">
-          <input type="checkbox" name="published" defaultChecked={school?.published ?? true} />
-          <span>{t.published}</span>
-        </label>
+        {!isPublic && (
+          <label className="check">
+            <input type="checkbox" name="published" defaultChecked={school?.published ?? true} />
+            <span>{t.published}</span>
+          </label>
+        )}
         <div className="three">
           <label>
             <span>{t.country}</span>
@@ -109,19 +137,18 @@ export function SchoolForm({ school }: { school?: School }) {
             ))}
           </div>
         </div>
-        <label>
-          <span>{t.slug}</span>
-          <input name="slug" defaultValue={school?.slug ?? ""} pattern="[a-z0-9\-]*" />
-        </label>
+        {!isPublic && (
+          <label>
+            <span>{t.slug}</span>
+            <input name="slug" defaultValue={school?.slug ?? ""} pattern="[a-z0-9\-]*" />
+          </label>
+        )}
       </fieldset>
 
       <fieldset>
         <legend>{t.placement}</legend>
         <div className="three">
-          <label>
-            <span>{t.organizer}</span>
-            <input name="organizer" defaultValue={school?.organizer ?? ""} />
-          </label>
+          {!isPublic && organizerFields}
           <label>
             <span>{t.tier}</span>
             <select name="tier" defaultValue={school?.tier ?? "standard"}>
@@ -132,10 +159,12 @@ export function SchoolForm({ school }: { school?: School }) {
               ))}
             </select>
           </label>
-          <label>
-            <span>{t.paidUntil}</span>
-            <input name="paid_until" type="date" defaultValue={school?.paid_until ?? ""} />
-          </label>
+          {!isPublic && (
+            <label>
+              <span>{t.paidUntil}</span>
+              <input name="paid_until" type="date" defaultValue={school?.paid_until ?? ""} />
+            </label>
+          )}
         </div>
       </fieldset>
 
@@ -153,7 +182,7 @@ export function SchoolForm({ school }: { school?: School }) {
               </figure>
             </div>
           )}
-          <PhotoPicker multiple={false} onAdd={(urls) => setMainPhoto(urls[0])} />
+          <PhotoPicker multiple={false} upload={upload} onAdd={(urls) => setMainPhoto(urls[0])} />
         </div>
         <div className="stack tight">
           <b>{t.gallery}</b>
@@ -169,7 +198,7 @@ export function SchoolForm({ school }: { school?: School }) {
               ))}
             </div>
           )}
-          <PhotoPicker multiple onAdd={(urls) => setGallery((g) => [...g, ...urls])} />
+          <PhotoPicker multiple upload={upload} onAdd={(urls) => setGallery((g) => [...g, ...urls])} />
         </div>
       </fieldset>
 
@@ -205,7 +234,7 @@ export function SchoolForm({ school }: { school?: School }) {
       </fieldset>
 
       {state.error && <p className="notice err">{state.error}</p>}
-      <SubmitButton className="btn gold big">{t.save}</SubmitButton>
+      <SubmitButton className="btn gold big">{isPublic ? tAll.submit.send : t.save}</SubmitButton>
     </form>
   );
 }

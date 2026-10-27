@@ -125,6 +125,16 @@ const en: Dictionary = {
     sent: "Thank you! We have received your request and will call you soon.",
     errRequired: "Please enter the company name and a phone number.",
   },
+  submit: {
+    title: "Add your summer school to the catalogue",
+    lead: "Fill in the form. We will check the details, publish your school on the site and get in touch with you.",
+    contactTitle: "Your details",
+    company: "Company or organiser name",
+    send: "Send",
+    sent: "Thank you! We have received your details. We will check them and get in touch.",
+    errContact: "Enter the company name and a contact phone number.",
+    cta: "Fill in the details yourself",
+  },
   footer: {
     phone: "Phone",
     sections: "Sections",
@@ -155,6 +165,8 @@ const en: Dictionary = {
     published: "Live",
     expired: "Expired",
     own: "My school",
+    submitted: "New submission",
+    submitLink: "Send this form to organisers:",
     form: {
       newTitle: "New summer school",
       editTitle: "Edit school",
@@ -169,6 +181,7 @@ const en: Dictionary = {
       slug: "Page address (made from the name if left empty)",
       placement: "Placement",
       organizer: "Organiser (leave empty for your own school)",
+      organizerContact: "Contact: name, phone, email",
       tier: "Plan",
       paidUntil: "Last day on the site (empty = no end)",
       months: "Months it runs (for the “Month” search)",

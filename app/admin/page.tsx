@@ -72,6 +72,9 @@ export default async function Admin() {
             {a.addSchool}
           </Link>
         </div>
+        <p className="muted small">
+          {a.submitLink} <Link href="/submit">summerschools.vercel.app/submit</Link>
+        </p>
         {!schools?.length ? (
           <p className="muted">{a.noSchools}</p>
         ) : (
@@ -79,7 +82,7 @@ export default async function Admin() {
             <table>
               <tbody>
                 {(schools as School[]).map((s) => {
-                  const status = !s.published ? a.draft : isListed(s, today) ? a.published : a.expired;
+                  const status = !s.published ? (s.submitted ? a.submitted : a.draft) : isListed(s, today) ? a.published : a.expired;
                   return (
                     <tr key={s.id}>
                       <td>
@@ -88,7 +91,10 @@ export default async function Admin() {
                           {t.countries[s.country]} · {t.common.ages(s.age_min, s.age_max)} · {t.common.weeks(s.duration_weeks)}
                         </div>
                       </td>
-                      <td>{s.organizer || a.own}</td>
+                      <td>
+                        {s.organizer || a.own}
+                        {s.organizer_contact && <div className="muted small">{s.organizer_contact}</div>}
+                      </td>
                       <td>{t.partners.tiers[s.tier].name}</td>
                       <td>
                         {status}

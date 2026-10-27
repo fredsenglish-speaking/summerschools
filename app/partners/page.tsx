@@ -64,6 +64,11 @@ export default async function Partners({ searchParams }: { searchParams: Promise
       <section id="apply" className="wrap section narrow">
         <h2>{t.formTitle}</h2>
         <PartnerForm tier={tier} />
+        <p>
+          <Link href="/submit" className="btn ghost">
+            {(await getT()).submit.cta}
+          </Link>
+        </p>
       </section>
     </>
   );

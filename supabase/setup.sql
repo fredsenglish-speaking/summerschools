@@ -52,6 +52,8 @@ create policy "admins write schools" on schools for all using (is_admin()) with 
 
 -- Added later; keeps older databases in step.
 alter table schools add column if not exists months int[] not null default '{}';
+alter table schools add column if not exists organizer_contact text not null default '';
+alter table schools add column if not exists submitted boolean not null default false;
 
 -- Enquiries -------------------------------------------------------------
 

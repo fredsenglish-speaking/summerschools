@@ -123,6 +123,16 @@ const az = {
     sent: "Təşəkkür edirik! Müraciətinizi aldıq. Tezliklə sizə zəng edəcəyik.",
     errRequired: "Şirkətin adını və telefon nömrəsini yazın.",
   },
+  submit: {
+    title: "Yay məktəbinizi kataloqa əlavə edin",
+    lead: "Formu doldurun. Məlumatları yoxladıqdan sonra məktəbinizi saytda yerləşdirəcəyik və sizinlə əlaqə saxlayacağıq.",
+    contactTitle: "Sizin məlumatlarınız",
+    company: "Şirkətin və ya təşkilatçının adı",
+    send: "Göndər",
+    sent: "Təşəkkür edirik! Məlumatlarınızı aldıq. Yoxladıqdan sonra sizinlə əlaqə saxlayacağıq.",
+    errContact: "Şirkətin adını və əlaqə telefonunu yazın.",
+    cta: "Məlumatları özünüz doldurun",
+  },
   footer: {
     phone: "Telefon",
     sections: "Bölmələr",
@@ -153,6 +163,8 @@ const az = {
     published: "Saytda",
     expired: "Müddəti bitib",
     own: "Öz məktəbim",
+    submitted: "Yeni təklif",
+    submitLink: "Formu təşkilatçıya göndərin:",
     form: {
       newTitle: "Yeni yay məktəbi",
       editTitle: "Məktəbi redaktə et",
@@ -167,6 +179,7 @@ const az = {
       slug: "Səhifə ünvanı (boş qalsa, adından düzəlir)",
       placement: "Yerləşdirmə",
       organizer: "Təşkilatçı (öz məktəbinizsə boş saxlayın)",
+      organizerContact: "Əlaqə: ad, telefon, e-poçt",
       tier: "Tarif",
       paidUntil: "Saytda son gün (boş = müddətsiz)",
       months: "Hansı aylarda keçirilir (axtarışda «Ay» seçimi üçün)",

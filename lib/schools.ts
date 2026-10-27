@@ -47,6 +47,9 @@ export type School = {
   tier: Tier;
   /** Empty for Ms Jane's own schools, else the partner company. Only shown in the admin. */
   organizer: string;
+  organizer_contact?: string;
+  /** Sent in by an organiser through the public form. */
+  submitted?: boolean;
   /** Last day a paid placement is shown (YYYY-MM-DD); null means no end date. */
   paid_until: string | null;
   i18n: Partial<Record<Locale, Partial<LocalText>>>;
