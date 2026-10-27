@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Flag } from "@/components/Flag";
 import { priceLabel } from "@/components/SchoolCard";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { getContact } from "@/lib/contact";
@@ -58,14 +59,17 @@ export default async function SchoolPage({ params }: Props) {
       </nav>
 
       <div className="school-photo" data-country={school.country}>
-        {school.main_photo && <img src={school.main_photo} alt={text.title} />}
+        {school.main_photo ? <img src={school.main_photo} alt={text.title} /> : <Flag country={school.country} size={140} className="photo-flag" />}
         {isFeatured(school) && <span className="pill gold">{t.school.recommended}</span>}
       </div>
 
       <div className="school-cols">
         <div className="school-main">
           <div className="stack">
-            <span className="card-place">{[t.countries[school.country], text.city].filter(Boolean).join(", ")}</span>
+            <span className="card-place">
+              <Flag country={school.country} size={20} />
+              {[t.countries[school.country], text.city].filter(Boolean).join(", ")}
+            </span>
             <h1>{text.title}</h1>
             {text.description && <p className="prose">{text.description}</p>}
           </div>

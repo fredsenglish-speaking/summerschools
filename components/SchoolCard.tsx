@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Flag } from "@/components/Flag";
 import { DICTIONARIES, type Locale } from "@/lib/i18n";
 import { formatPrice } from "@/lib/format";
 import { isFeatured, localText, type School } from "@/lib/schools";
@@ -15,11 +16,14 @@ export function SchoolCard({ school, locale }: { school: School; locale: Locale 
   return (
     <Link href={`/schools/${school.slug}`} className="card">
       <div className="card-photo" data-country={school.country}>
-        {school.main_photo && <img src={school.main_photo} alt="" loading="lazy" />}
+        {school.main_photo ? <img src={school.main_photo} alt="" loading="lazy" /> : <Flag country={school.country} size={88} className="photo-flag" />}
         {isFeatured(school) && <span className="pill gold">{t.school.recommended}</span>}
       </div>
       <div className="card-body">
-        <span className="card-place">{place}</span>
+        <span className="card-place">
+          <Flag country={school.country} size={18} />
+          {place}
+        </span>
         <h3>{text.title}</h3>
         <dl className="card-facts">
           <div>
@@ -45,7 +49,7 @@ export function SchoolCard({ school, locale }: { school: School; locale: Locale 
         </dl>
         <div className="card-foot">
           <b>{priceLabel(school, locale)}</b>
-          <span>{t.common.more} →</span>
+          <span className="more">{t.common.more} →</span>
         </div>
       </div>
     </Link>

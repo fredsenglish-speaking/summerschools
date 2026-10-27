@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Flag } from "@/components/Flag";
 import { requireAdmin } from "@/lib/auth";
 import { bakuToday } from "@/lib/format";
 import { DICTIONARIES, INTL_LOCALE } from "@/lib/i18n";
@@ -88,7 +89,7 @@ export default async function Admin() {
                       <td>
                         <b>{localText(s, locale).title}</b>
                         <div className="muted small">
-                          {t.countries[s.country]} · {t.common.ages(s.age_min, s.age_max)} · {t.common.weeks(s.duration_weeks)}
+                          <Flag country={s.country} size={14} /> {t.countries[s.country]} · {t.common.ages(s.age_min, s.age_max)} · {t.common.weeks(s.duration_weeks)}
                         </div>
                       </td>
                       <td>

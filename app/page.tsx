@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Flag } from "@/components/Flag";
 import { SchoolCard, priceLabel } from "@/components/SchoolCard";
 import { listSchools } from "@/lib/data";
 import { DICTIONARIES } from "@/lib/i18n";
@@ -17,11 +18,25 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 
   return (
     <>
-      <section className="hero">
+      <section className="hero home-hero">
+        <div className="hero-glow" aria-hidden="true" />
+        <div className="hero-flags" aria-hidden="true">
+          {countries.map((c) => (
+            <Flag key={c} country={c} size={64} className={`float f-${c}`} />
+          ))}
+        </div>
         <div className="wrap hero-inner">
           <span className="pill gold">{t.home.badge}</span>
           <h1>{t.home.title}</h1>
           <p className="lead">{t.home.lead}</p>
+          <ul className="stats">
+            {t.home.stats.map((x) => (
+              <li key={x.label}>
+                <b>{x.value}</b>
+                <span>{x.label}</span>
+              </li>
+            ))}
+          </ul>
           <form action="/#schools" method="get" className="search" role="search">
             <label>
               <span>{t.home.age}</span>
@@ -48,18 +63,19 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
                 ))}
               </select>
             </label>
-            <label>
-              <span>{t.home.country}</span>
-              <select name="country" defaultValue={search.country}>
-                <option value="all">{t.home.allCountries}</option>
-                {COUNTRIES.map((c) => (
-                  <option key={c} value={c}>
-                    {t.countries[c]}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <button type="submit" className="btn gold big">
+            <fieldset className="chips">
+              <legend>{t.home.country}</legend>
+              {(["all", ...COUNTRIES] as const).map((c) => (
+                <label key={c} className="chip">
+                  <input type="radio" name="country" value={c} defaultChecked={search.country === c} />
+                  <span>
+                    <Flag country={c} size={22} />
+                    {c === "all" ? t.home.allCountries : t.countries[c]}
+                  </span>
+                </label>
+              ))}
+            </fieldset>
+            <button type="submit" className="btn gold big search-go">
               {t.home.search}
             </button>
           </form>
@@ -108,8 +124,12 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
           <h2>{t.home.countriesTitle}</h2>
           <div className="countries">
             {countries.map((c) => (
-              <Link key={c} href={`/?country=${c}#schools`} className="country" data-country={c}>
-                {t.countries[c]}
+              <Link key={c} href={`/?country=${c}#schools`} className="country">
+                <Flag country={c} size={56} />
+                <span>
+                  <b>{t.countries[c]}</b>
+                  <small>{t.home.schoolsN(all.filter((s) => s.country === c).length)}</small>
+                </span>
               </Link>
             ))}
           </div>
@@ -122,8 +142,9 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
           <p className="lead-dark">{t.home.whyText}</p>
         </div>
         <div className="why">
-          {t.home.why.map((w) => (
+          {t.home.why.map((w, i) => (
             <div key={w.title}>
+              <span className="why-no">{String(i + 1).padStart(2, "0")}</span>
               <b>{w.title}</b>
               <span>{w.text}</span>
             </div>

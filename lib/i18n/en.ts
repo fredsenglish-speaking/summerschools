@@ -36,6 +36,12 @@ const en: Dictionary = {
     other: "Other",
   },
   home: {
+    stats: [
+      { value: "10+", label: "years of experience" },
+      { value: "6", label: "destinations" },
+      { value: "3", label: "languages" },
+    ],
+    schoolsN: (n: number) => (n ? `${n} ${n === 1 ? "school" : "schools"}` : "Coming soon"),
     badge: "Over 10 years of experience",
     title: "Find the right summer school for your child",
     lead: "Summer schools in the USA, London, China, Europe, Turkey and Azerbaijan. Choose your child's age and the length of stay to see matching programmes.",

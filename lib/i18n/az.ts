@@ -34,6 +34,12 @@ const az = {
     other: "Digər",
   },
   home: {
+    stats: [
+      { value: "10+", label: "il təcrübə" },
+      { value: "6", label: "istiqamət" },
+      { value: "3", label: "dildə xidmət" },
+    ],
+    schoolsN: (n: number) => (n ? `${n} məktəb` : "Tezliklə"),
     badge: "10 ildən artıq təcrübə",
     title: "Uşağınız üçün ideal yay məktəbini tapın",
     lead: "ABŞ, London, Çin, Avropa, Türkiyə və Azərbaycanda yay məktəbləri. Uşağın yaşını və müddəti seçin, uyğun proqramları dərhal görün.",
