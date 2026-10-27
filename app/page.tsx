@@ -5,6 +5,7 @@ import { listSchools } from "@/lib/data";
 import { DICTIONARIES } from "@/lib/i18n";
 import { getLocale } from "@/lib/i18n/server";
 import { COUNTRIES, DURATIONS, localText, matches, parseSearch } from "@/lib/schools";
+import { Sky } from "@/components/Sky";
 
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const locale = await getLocale();
@@ -19,8 +20,8 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   return (
     <>
       <section className="hero home-hero">
-        <div className="hero-glow" aria-hidden="true" />
-        <div className="hero-flags" aria-hidden="true">
+        <Sky />
+                <div className="hero-flags" aria-hidden="true">
           {countries.map((c) => (
             <Flag key={c} country={c} size={64} className={`float f-${c}`} />
           ))}
