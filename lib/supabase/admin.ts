@@ -7,7 +7,7 @@ import { SUPABASE_URL } from "./url";
  * server after checking who the caller is.
  */
 export function createAdminClient() {
-  return createClient(SUPABASE_URL, (process.env.SUPABASE_SERVICE_ROLE_KEY ?? "").trim(), {
+  return createClient(SUPABASE_URL, (process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY || "").trim(), {
     auth: { persistSession: false, autoRefreshToken: false },
   });
 }
