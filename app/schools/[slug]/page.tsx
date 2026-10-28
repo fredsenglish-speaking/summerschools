@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Flag } from "@/components/Flag";
+import { Flag, FlagCover } from "@/components/Flag";
 import { priceLabel } from "@/components/SchoolCard";
 import { WhatsAppIcon } from "@/components/WhatsAppButton";
 import { getContact } from "@/lib/contact";
@@ -59,7 +59,7 @@ export default async function SchoolPage({ params }: Props) {
       </nav>
 
       <div className="school-photo" data-country={school.country}>
-        {school.main_photo ? <img src={school.main_photo} alt={text.title} /> : <Flag country={school.country} size={140} className="photo-flag" />}
+        {school.main_photo ? <img src={school.main_photo} alt={text.title} /> : <FlagCover country={school.country} name={t.countries[school.country]} />}
         {isFeatured(school) && <span className="pill gold">{t.school.recommended}</span>}
       </div>
 

@@ -125,7 +125,7 @@ button, input, select, textarea { font: inherit; }
 .chips legend { font-size: 13px; font-weight: 600; color: var(--muted); padding: 0; margin-bottom: 8px; }
 .chip { position: relative; cursor: pointer; }
 .chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-.chip .flag { border-radius: 50%; }
+.chip .flag { border-radius: 5px; }
 .chip > span { display: inline-flex; align-items: center; gap: 10px; min-height: 46px; padding: 6px 16px 6px 8px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--paper); font-weight: 500; font-size: 15px; color: var(--navy); transition: border-color 0.15s, background 0.15s, box-shadow 0.15s; }
 .chip:hover > span { border-color: var(--field); background: var(--soft); }
 .chip input:checked + span { border-color: var(--sea); background: #e3f7f5; color: var(--sea-deep); box-shadow: 0 0 0 3px rgba(18, 164, 168, 0.2); }
@@ -164,6 +164,13 @@ button, input, select, textarea { font: inherit; }
 .card:hover .card-photo img { transform: scale(1.05); }
 .card-photo { overflow: hidden; }
 .card-photo img { transition: transform 0.4s; }
+.flag-cover { position: absolute; inset: 0; display: block; overflow: hidden; background: var(--sea-grad); }
+.flag-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.flag-name { position: absolute; left: 14px; bottom: 14px; max-width: calc(100% - 28px); padding: 8px 16px; border-radius: 14px; display: flex; flex-direction: column; gap: 0; background: rgba(255, 253, 248, 0.94); color: var(--navy); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.flag-name b { font-family: var(--display); font-size: 20px; font-weight: 600; line-height: 1.2; }
+.flag-name small { font-size: 11px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gold-deep); }
+.school-photo .flag-name b { font-size: clamp(30px, 4vw, 44px); }
+.school-photo .flag-name { left: 28px; bottom: 28px; padding: 12px 24px; }
 .photo-flag { position: absolute; inset: 0; margin: auto; border-radius: 50% !important; box-shadow: 0 16px 36px rgba(29, 58, 79, 0.2) !important; border: 4px solid #fff; }
 .card-photo, .school-photo, .banner, .country { position: relative; background: var(--sea-grad); }
 .card-photo { height: 230px; }
@@ -193,12 +200,10 @@ button, input, select, textarea { font: inherit; }
 
 .countries { margin-top: 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
 .countries { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important; }
-.country { display: flex; align-items: center; gap: 16px; padding: 18px; border-radius: 999px; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow); text-decoration: none; transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; padding-right: 26px; }
-.country:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
-.country .flag { border-radius: 50%; box-shadow: 0 0 0 2px var(--paper), 0 0 0 3px var(--gold); }
-.country > span { display: flex; flex-direction: column; gap: 2px; }
-.country b { font-family: var(--display); font-size: 19px; font-weight: 600; color: var(--navy); }
-.country small { font-size: 14px; color: var(--muted); }
+.countries { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)) !important; gap: 20px !important; }
+.country { display: block; height: 170px; border-radius: 20px; overflow: hidden; text-decoration: none; border: 1px solid var(--line); box-shadow: var(--shadow); transition: transform 0.2s, box-shadow 0.2s; }
+.country:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.country:hover .flag-cover img { transform: scale(1.06); }
 .about { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center; }
 .why { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .why div { padding: 26px; border-radius: 22px; background: var(--paper); border: 1px solid var(--line); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 6px; font-size: 14px; }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Flag } from "@/components/Flag";
+import { Flag, FlagCover } from "@/components/Flag";
 import { SchoolCard, priceLabel } from "@/components/SchoolCard";
 import { listSchools } from "@/lib/data";
 import { DICTIONARIES } from "@/lib/i18n";
@@ -126,11 +126,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
           <div className="countries">
             {countries.map((c) => (
               <Link key={c} href={`/?country=${c}#schools`} className="country">
-                <Flag country={c} size={56} />
-                <span>
-                  <b>{t.countries[c]}</b>
-                  <small>{t.home.schoolsN(all.filter((s) => s.country === c).length)}</small>
-                </span>
+                <FlagCover country={c} name={t.countries[c]} note={t.home.schoolsN(all.filter((s) => s.country === c).length)} />
               </Link>
             ))}
           </div>

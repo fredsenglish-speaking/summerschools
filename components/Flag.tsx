@@ -17,3 +17,17 @@ export function Flag({ country, size = 24, className = "" }: { country: Country 
     </span>
   );
 }
+
+/** A flag filling its whole box, with the country name written over it. */
+export function FlagCover({ country, name, note }: { country: Country; name: string; note?: string }) {
+  const file = FILES[country];
+  return (
+    <span className="flag-cover">
+      {file && <img src={`/flags/wide/${file}.svg`} alt="" loading="lazy" />}
+      <span className="flag-name">
+        <b>{name}</b>
+        {note && <small>{note}</small>}
+      </span>
+    </span>
+  );
+}
