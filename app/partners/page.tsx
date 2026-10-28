@@ -26,7 +26,7 @@ export default async function Partners({ searchParams }: { searchParams: Promise
       </section>
 
       <section className="wrap section">
-        <h2>{t.tariffsTitle}</h2>
+        <h2 className="plans-head">{t.tariffsTitle}</h2>
         <div className="plans">
           {TIERS.map((x) => (
             <div key={x} className={x === tier ? "plan chosen" : "plan"}>
