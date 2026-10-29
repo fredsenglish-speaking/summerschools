@@ -9,7 +9,7 @@ export async function Footer() {
     <footer id="contact" className="footer">
       <div className="wrap footer-grid">
         <div>
-          <img src="/logo.png" alt="International Summer School" width={180} height={126} className="footer-logo" />
+          <img src="/logo.png" alt="International Summer School" width={177} height={130} className="footer-logo" />
           {address && <p>{address}</p>}
         </div>
         <div>
