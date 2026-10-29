@@ -7,6 +7,14 @@ import { DICTIONARIES } from "@/lib/i18n";
 import { getLocale } from "@/lib/i18n/server";
 import { COUNTRIES, DURATIONS, localText, matches, parseSearch } from "@/lib/schools";
 
+const WHY_ICONS = {
+  globe: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3c-2.5 2.6-3.8 5.6-3.8 9s1.3 6.4 3.8 9",
+  cap: "M2 9l10-5 10 5-10 5L2 9zM6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5M22 9v6",
+  growth: "M9 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3.3 2.7-6 6-6 1.2 0 2.3.3 3.2.9M14 20l3-4 2 2 3-5M19 13h3v3",
+  plane: "M21 3L3 10.5l7 2.5 2.5 7L21 3zM10 13l5-5",
+  bulb: "M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3zM12 1v1M4 5l.7.7M20 5l-.7.7",
+};
+
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const locale = await getLocale();
   const t = DICTIONARIES[locale];
@@ -133,19 +141,34 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
         </div>
       </section>
 
-      <section id="about" className="wrap section about">
-        <div className="stack">
-          <h2>{t.home.whyTitle}</h2>
-          <p className="lead-dark">{t.home.whyText}</p>
-        </div>
-        <div className="why">
-          {t.home.why.map((w, i) => (
-            <div key={w.title}>
-              <span className="why-no">{String(i + 1).padStart(2, "0")}</span>
-              <b>{w.title}</b>
-              <span>{w.text}</span>
-            </div>
-          ))}
+      <section id="about" className="why-lux">
+        <img src="/why.jpg" alt="" className="why-photo" loading="lazy" />
+        <div className="wrap why-inner">
+          <h2 className="why-title">
+            {t.home.whyTitle}
+            <em>{t.home.whyTitleGold}</em>
+          </h2>
+          <p className="why-lead">{t.home.whyText}</p>
+          <ul className="why-points">
+            {t.home.why.map((w) => (
+              <li key={w.title}>
+                <span className="why-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                    <path d={WHY_ICONS[w.icon as keyof typeof WHY_ICONS]} />
+                  </svg>
+                </span>
+                <b>{w.title}</b>
+                <span>{w.text}</span>
+              </li>
+            ))}
+          </ul>
+          <Link href="/#schools" className="btn dark big why-cta">
+            {t.home.whyCta} →
+          </Link>
+          <p className="why-closing">{t.home.whyClosing}</p>
+          <p className="why-tagline">
+            <b lang="en">International Summer Schools —</b> {t.home.whyTagline}
+          </p>
         </div>
       </section>
 
