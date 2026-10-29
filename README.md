@@ -1,4 +1,4 @@
-# International Summer School
+# International Summer Schools
 
 Uşaqlar üçün yay məktəbləri kataloqu: valideyn uşağın yaşını, müddəti və ölkəni seçir, uyğun məktəbləri görür və müraciət göndərir. Başqa təşkilatçılar öz məktəblərini pullu tariflə (Baza / Top / Premium) yerləşdirə bilər. Bütün müraciətlər sayt sahibinə gəlir.
 
