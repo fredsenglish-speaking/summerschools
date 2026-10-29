@@ -305,12 +305,17 @@ td.actions { white-space: nowrap; display: flex; gap: 14px; }
 /* Home hero: the premium school's cover fills the background, with a dark wash for white text */
 .photo-hero { background: radial-gradient(800px 500px at 85% 10%, rgba(255, 196, 110, 0.45), transparent 65%), linear-gradient(135deg, #0d4f63 0%, #0a3a4f 55%, #10294a 100%); }
 .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: heroZoom 18s ease-out both; }
-.photo-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8, 34, 48, 0.85) 0%, rgba(8, 34, 48, 0.6) 45%, rgba(8, 34, 48, 0.2) 100%), linear-gradient(0deg, rgba(8, 34, 48, 0.45), transparent 40%); }
+.photo-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8, 34, 48, 0.62) 0%, rgba(8, 34, 48, 0.3) 38%, rgba(8, 34, 48, 0) 65%), linear-gradient(180deg, rgba(8, 34, 48, 0.25), transparent 40%); }
 .photo-hero .hero-inner { z-index: 2; }
 .photo-hero h1, .photo-hero .lead, .photo-hero .stats span { color: #fff; text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35); }
 .photo-hero .stats b { color: #ffd27a; }
 .photo-hero .stats li + li { border-color: rgba(255, 255, 255, 0.4); }
 .photo-hero .pill { background: rgba(255, 255, 255, 0.14); color: #fff; border-color: rgba(255, 255, 255, 0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-@media (min-width: 1100px) { .photo-hero .hero-inner { padding-top: 110px; padding-bottom: 96px; } }
-@keyframes heroZoom { from { transform: scale(1.08); } to { transform: scale(1); } }
+.photo-hero { min-height: clamp(520px, 56.25vw, 820px); }
+.photo-hero .hero-inner { padding-top: clamp(48px, 7vw, 110px); padding-bottom: 160px; }
+.photo-hero .hero-bg { object-position: center bottom; }
+.search-wrap { position: relative; z-index: 3; margin-top: -110px; }
+.search-wrap .search { margin-top: 0 !important; background: rgba(255, 253, 248, 0.97); }
+@media (max-width: 700px) { .photo-hero { min-height: 0; } .photo-hero .hero-bg { object-position: 30% bottom; } .search-wrap { margin-top: -80px; } }
+@keyframes heroZoom { from { transform: scale(1.04); } to { transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { .hero-bg { animation: none; } }

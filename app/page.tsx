@@ -16,12 +16,11 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   const premium = all.filter((s) => s.tier === "premium");
   const filtered = search.age !== null || search.duration !== "all" || search.country !== "all" || search.month !== null;
   const countries = COUNTRIES.filter((c) => c !== "other");
-  const heroPhoto = (premium.find((s) => s.main_photo) ?? all.find((s) => s.main_photo))?.main_photo;
 
   return (
     <>
       <section className="hero home-hero photo-hero">
-        {heroPhoto && <img src={heroPhoto} alt="" className="hero-bg" />}
+        <img src="/hero.jpg" srcSet="/hero-sm.jpg 1000w, /hero.jpg 1672w" sizes="100vw" alt="" className="hero-bg" fetchPriority="high" />
         <div className="wrap hero-inner">
           <span className="pill gold">{t.home.badge}</span>
           <h1>{t.home.title}</h1>
@@ -34,50 +33,52 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
               </li>
             ))}
           </ul>
-          <form action="/#schools" method="get" className="search" role="search">
-            <label>
-              <span>{t.home.age}</span>
-              <input type="number" name="age" min={1} max={99} placeholder={t.home.agePlaceholder} defaultValue={search.age ?? ""} />
-            </label>
-            <label>
-              <span>{t.home.duration}</span>
-              <select name="duration" defaultValue={search.duration}>
-                {DURATIONS.map((d) => (
-                  <option key={d} value={d}>
-                    {t.home.durations[d]}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label>
-              <span>{t.home.month}</span>
-              <select name="month" defaultValue={search.month ?? ""}>
-                <option value="">{t.home.anyMonth}</option>
-                {t.common.months.map((m, i) => (
-                  <option key={m} value={i + 1}>
-                    {m}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <fieldset className="chips">
-              <legend>{t.home.country}</legend>
-              {(["all", ...COUNTRIES] as const).map((c) => (
-                <label key={c} className="chip">
-                  <input type="radio" name="country" value={c} defaultChecked={search.country === c} />
-                  <span>
-                    <Flag country={c} size={22} />
-                    {c === "all" ? t.home.allCountries : t.countries[c]}
-                  </span>
-                </label>
-              ))}
-            </fieldset>
-            <button type="submit" className="btn gold big search-go">
-              {t.home.search}
-            </button>
-          </form>
         </div>
       </section>
+      <div className="wrap search-wrap">
+        <form action="/#schools" method="get" className="search" role="search">
+          <label>
+            <span>{t.home.age}</span>
+            <input type="number" name="age" min={1} max={99} placeholder={t.home.agePlaceholder} defaultValue={search.age ?? ""} />
+          </label>
+          <label>
+            <span>{t.home.duration}</span>
+            <select name="duration" defaultValue={search.duration}>
+              {DURATIONS.map((d) => (
+                <option key={d} value={d}>
+                  {t.home.durations[d]}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            <span>{t.home.month}</span>
+            <select name="month" defaultValue={search.month ?? ""}>
+              <option value="">{t.home.anyMonth}</option>
+              {t.common.months.map((m, i) => (
+                <option key={m} value={i + 1}>
+                  {m}
+                </option>
+              ))}
+            </select>
+          </label>
+          <fieldset className="chips">
+            <legend>{t.home.country}</legend>
+            {(["all", ...COUNTRIES] as const).map((c) => (
+              <label key={c} className="chip">
+                <input type="radio" name="country" value={c} defaultChecked={search.country === c} />
+                <span>
+                  <Flag country={c} size={22} />
+                  {c === "all" ? t.home.allCountries : t.countries[c]}
+                </span>
+              </label>
+            ))}
+          </fieldset>
+          <button type="submit" className="btn gold big search-go">
+            {t.home.search}
+          </button>
+        </form>
+      </div>
 
       {premium.length > 0 && !filtered && (
         <section className="wrap section">
