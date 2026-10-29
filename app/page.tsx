@@ -20,6 +20,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   return (
     <>
       <section className="hero home-hero photo-hero">
+        <img src="/hero-sm.jpg" alt="" className="hero-fill" />
         <img src="/hero.jpg" srcSet="/hero-sm.jpg 1000w, /hero.jpg 1672w" sizes="100vw" alt="" className="hero-bg" fetchPriority="high" />
         <div className="wrap hero-inner">
           <span className="pill gold">{t.home.badge}</span>

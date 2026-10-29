@@ -343,3 +343,11 @@ body::after { content: ""; position: fixed; inset: 0; z-index: -1; background: r
 main { position: relative; }
 .card, .country, .why div, .plan, .steps li, .panel, .fact, .apply { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 .card, .why div, .plan, .steps li, .panel, .fact, .apply, .empty { background: rgba(255, 253, 248, 0.88); }
+
+/* Lift the landmarks above the search box: the photo keeps its shape and sits higher, a blurred copy fills below */
+.hero-fill { position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); object-fit: cover; object-position: center bottom; filter: blur(18px) saturate(1.1); }
+@media (min-width: 701px) {
+  .photo-hero .hero-bg { top: -7vw; bottom: auto; height: auto; min-height: 0; object-fit: fill; -webkit-mask-image: linear-gradient(180deg, #000 82%, transparent 100%); mask-image: linear-gradient(180deg, #000 82%, transparent 100%); }
+}
+@media (max-width: 700px) { .hero-fill { display: none; } }
+@media (min-width: 1600px) { .photo-hero .hero-bg { top: -12vw; } }
