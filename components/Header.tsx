@@ -40,7 +40,7 @@ export async function Header() {
               </button>
             </form>
           )}
-          {phone && (
+          {phone && !isAdmin && (
             <a href={`tel:${tel}`} className="btn dark small">
               {phone}
             </a>

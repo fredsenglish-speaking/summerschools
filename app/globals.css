@@ -50,7 +50,7 @@ button, input, select, textarea { font: inherit; }
 .muted { color: var(--muted); }
 .small { font-size: 14px; }
 .center { text-align: center; }
-.soft { background: linear-gradient(180deg, #fff3dc, #fffbf3); }
+.soft { background: rgba(255, 243, 220, 0.45); border-top: 1px solid rgba(201, 164, 92, 0.25); border-bottom: 1px solid rgba(201, 164, 92, 0.25); }
 
 /* Top bar */
 .bar { position: sticky; top: 0; z-index: 10; background: rgba(250, 246, 239, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); box-shadow: 0 1px 0 rgba(201, 164, 92, 0.25); }
@@ -335,3 +335,11 @@ td.actions { white-space: nowrap; display: flex; gap: 14px; }
   .lux-search { grid-template-columns: repeat(3, minmax(0, 1fr)) auto; }
   .lux-search .search-go { grid-row: 1; grid-column: 4; align-self: end; min-height: 50px; }
 }
+
+/* Page backdrop: a soft, blurred echo of the hero photo behind every section */
+body { background: #f6efe2; }
+body::before { content: ""; position: fixed; inset: -60px; z-index: -2; background: url("/hero-sm.jpg") center / cover no-repeat; filter: blur(22px) saturate(1.25); opacity: 1; }
+body::after { content: ""; position: fixed; inset: 0; z-index: -1; background: radial-gradient(900px 600px at 10% 0%, rgba(255, 236, 200, 0.55), transparent 70%), radial-gradient(900px 600px at 100% 100%, rgba(160, 225, 222, 0.45), transparent 70%), linear-gradient(180deg, rgba(255, 250, 240, 0.42), rgba(250, 243, 230, 0.5)); }
+main { position: relative; }
+.card, .country, .why div, .plan, .steps li, .panel, .fact, .apply { backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.card, .why div, .plan, .steps li, .panel, .fact, .apply, .empty { background: rgba(255, 253, 248, 0.88); }
