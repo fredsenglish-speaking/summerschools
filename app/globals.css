@@ -312,10 +312,26 @@ td.actions { white-space: nowrap; display: flex; gap: 14px; }
 .photo-hero .stats li + li { border-color: rgba(255, 255, 255, 0.4); }
 .photo-hero .pill { background: rgba(255, 255, 255, 0.14); color: #fff; border-color: rgba(255, 255, 255, 0.55); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
 .photo-hero { min-height: clamp(520px, 56.25vw, 820px); }
-.photo-hero .hero-inner { padding-top: clamp(48px, 7vw, 110px); padding-bottom: 160px; }
+.photo-hero .hero-inner { padding-top: clamp(40px, 5vw, 80px); padding-bottom: clamp(48px, 6vw, 90px); }
 .photo-hero .hero-bg { object-position: center bottom; }
-.search-wrap { position: relative; z-index: 3; margin-top: -110px; }
-.search-wrap .search { margin-top: 0 !important; background: rgba(255, 253, 248, 0.97); }
-@media (max-width: 700px) { .photo-hero { min-height: 0; } .photo-hero .hero-bg { object-position: 30% bottom; } .search-wrap { margin-top: -80px; } }
+@media (max-width: 700px) { .photo-hero { min-height: 0; } .photo-hero .hero-bg { object-position: 30% bottom; } }
 @keyframes heroZoom { from { transform: scale(1.04); } to { transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { .hero-bg { animation: none; } }
+
+/* Luxury glass search over the hero photo */
+.lux-search { margin-top: 8px !important; max-width: 980px; padding: 22px 24px; gap: 16px; border-radius: 26px; background: linear-gradient(135deg, rgba(10, 36, 52, 0.55), rgba(10, 36, 52, 0.35)) !important; border: 1px solid rgba(233, 207, 148, 0.55) !important; box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important; backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); }
+.lux-search label:not(.chip) > span, .lux-search .chips legend { color: #e9cf94 !important; }
+.lux-search input, .lux-search select { background: rgba(255, 255, 255, 0.1) !important; border: 1px solid rgba(233, 207, 148, 0.45) !important; color: #fff !important; border-radius: 14px !important; min-height: 50px !important; font-size: 16px !important; }
+.lux-search input::placeholder { color: rgba(255, 255, 255, 0.65); }
+.lux-search select option { color: var(--navy); }
+.lux-search input:focus, .lux-search select:focus { outline: none; border-color: #e9cf94 !important; box-shadow: 0 0 0 3px rgba(233, 207, 148, 0.25); }
+.lux-search .chip > span { min-height: 38px; padding: 4px 14px 4px 6px; font-size: 14px; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3); color: #fff; }
+.lux-search .chip:hover > span { background: rgba(255, 255, 255, 0.2); border-color: rgba(233, 207, 148, 0.7); }
+.lux-search .chip input:checked + span { background: var(--gold-grad); border-color: #e9cf94; color: #fff; box-shadow: 0 6px 16px rgba(154, 116, 56, 0.45); }
+.lux-search .search-go { background: var(--gold-grad) !important; color: #fff !important; box-shadow: 0 10px 26px rgba(154, 116, 56, 0.5) !important; letter-spacing: 0.16em; }
+.lux-search select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23e9cf94' stroke-width='1.6'/%3E%3C/svg%3E") !important; background-repeat: no-repeat !important; background-position: right 14px center !important; padding-right: 36px !important; }
+@media (min-width: 900px) { .lux-search .search-go { min-width: 200px; } }
+@media (min-width: 900px) {
+  .lux-search { grid-template-columns: repeat(3, minmax(0, 1fr)) auto; }
+  .lux-search .search-go { grid-row: 1; grid-column: 4; align-self: end; min-height: 50px; }
+}

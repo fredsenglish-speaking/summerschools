@@ -33,52 +33,50 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
               </li>
             ))}
           </ul>
+          <form action="/#schools" method="get" className="search lux-search" role="search">
+            <label>
+              <span>{t.home.age}</span>
+              <input type="number" name="age" min={1} max={99} placeholder={t.home.agePlaceholder} defaultValue={search.age ?? ""} />
+            </label>
+            <label>
+              <span>{t.home.duration}</span>
+              <select name="duration" defaultValue={search.duration}>
+                {DURATIONS.map((d) => (
+                  <option key={d} value={d}>
+                    {t.home.durations[d]}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              <span>{t.home.month}</span>
+              <select name="month" defaultValue={search.month ?? ""}>
+                <option value="">{t.home.anyMonth}</option>
+                {t.common.months.map((m, i) => (
+                  <option key={m} value={i + 1}>
+                    {m}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <fieldset className="chips">
+              <legend>{t.home.country}</legend>
+              {(["all", ...COUNTRIES] as const).map((c) => (
+                <label key={c} className="chip">
+                  <input type="radio" name="country" value={c} defaultChecked={search.country === c} />
+                  <span>
+                    <Flag country={c} size={22} />
+                    {c === "all" ? t.home.allCountries : t.countries[c]}
+                  </span>
+                </label>
+              ))}
+            </fieldset>
+            <button type="submit" className="btn gold big search-go">
+              {t.home.search}
+            </button>
+          </form>
         </div>
       </section>
-      <div className="wrap search-wrap">
-        <form action="/#schools" method="get" className="search" role="search">
-          <label>
-            <span>{t.home.age}</span>
-            <input type="number" name="age" min={1} max={99} placeholder={t.home.agePlaceholder} defaultValue={search.age ?? ""} />
-          </label>
-          <label>
-            <span>{t.home.duration}</span>
-            <select name="duration" defaultValue={search.duration}>
-              {DURATIONS.map((d) => (
-                <option key={d} value={d}>
-                  {t.home.durations[d]}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>{t.home.month}</span>
-            <select name="month" defaultValue={search.month ?? ""}>
-              <option value="">{t.home.anyMonth}</option>
-              {t.common.months.map((m, i) => (
-                <option key={m} value={i + 1}>
-                  {m}
-                </option>
-              ))}
-            </select>
-          </label>
-          <fieldset className="chips">
-            <legend>{t.home.country}</legend>
-            {(["all", ...COUNTRIES] as const).map((c) => (
-              <label key={c} className="chip">
-                <input type="radio" name="country" value={c} defaultChecked={search.country === c} />
-                <span>
-                  <Flag country={c} size={22} />
-                  {c === "all" ? t.home.allCountries : t.countries[c]}
-                </span>
-              </label>
-            ))}
-          </fieldset>
-          <button type="submit" className="btn gold big search-go">
-            {t.home.search}
-          </button>
-        </form>
-      </div>
 
       {premium.length > 0 && !filtered && (
         <section className="wrap section">
