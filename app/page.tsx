@@ -20,10 +20,8 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 
   return (
     <>
-      <section className="hero home-hero">
-        <div className="hero-art" aria-hidden="true">
-          {heroPhoto ? <img src={heroPhoto} alt="" /> : <img src="/logo-mark.png" alt="" className="hero-logo" />}
-        </div>
+      <section className="hero home-hero photo-hero">
+        {heroPhoto && <img src={heroPhoto} alt="" className="hero-bg" />}
         <div className="wrap hero-inner">
           <span className="pill gold">{t.home.badge}</span>
           <h1>{t.home.title}</h1>
