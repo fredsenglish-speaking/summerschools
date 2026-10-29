@@ -24,10 +24,12 @@ export function FlagCover({ country, name, note }: { country: Country; name: str
   return (
     <span className="flag-cover">
       {file && <img src={`/flags/wide/${file}.svg`} alt="" loading="lazy" />}
-      <span className="flag-name">
-        <b>{name}</b>
-        {note && <small>{note}</small>}
-      </span>
+      {name && (
+        <span className="flag-name">
+          <b>{name}</b>
+          {note && <small>{note}</small>}
+        </span>
+      )}
     </span>
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Carousel } from "@/components/Carousel";
 import { Flag, FlagCover } from "@/components/Flag";
 import { SchoolCard, priceLabel } from "@/components/SchoolCard";
 import { listSchools } from "@/lib/data";
@@ -13,7 +14,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   const search = parseSearch(await searchParams);
   const all = await listSchools();
   const found = all.filter((s) => matches(s, search));
-  const banner = all.find((s) => s.tier === "premium");
+  const premium = all.filter((s) => s.tier === "premium");
   const filtered = search.age !== null || search.duration !== "all" || search.country !== "all" || search.month !== null;
   const countries = COUNTRIES.filter((c) => c !== "other");
 
@@ -83,19 +84,23 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
         </div>
       </section>
 
-      {banner && !filtered && (
+      {premium.length > 0 && !filtered && (
         <section className="wrap section">
-          <Link href={`/schools/${banner.slug}`} className="banner" data-country={banner.country}>
-            {banner.main_photo && <img src={banner.main_photo} alt="" />}
-            <div className="banner-text">
-              <span className="pill gold">{t.school.recommended}</span>
-              <h2>{localText(banner, locale).title}</h2>
-              <p>
-                {t.countries[banner.country]} · {t.common.ages(banner.age_min, banner.age_max)} · {t.common.weeks(banner.duration_weeks)} ·{" "}
-                {priceLabel(banner, locale)}
-              </p>
-            </div>
-          </Link>
+          <Carousel label={t.school.recommended}>
+            {premium.map((banner) => (
+              <Link key={banner.id} href={`/schools/${banner.slug}`} className="banner" data-country={banner.country}>
+                {banner.main_photo ? <img src={banner.main_photo} alt="" /> : <FlagCover country={banner.country} name="" />}
+                <div className="banner-text">
+                  <span className="pill gold">{t.school.recommended}</span>
+                  <h2>{localText(banner, locale).title}</h2>
+                  <p>
+                    {t.countries[banner.country]} · {t.common.ages(banner.age_min, banner.age_max)} · {t.common.weeks(banner.duration_weeks)} ·{" "}
+                    {priceLabel(banner, locale)}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </Carousel>
         </section>
       )}
 
