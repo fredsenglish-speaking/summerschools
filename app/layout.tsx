@@ -7,7 +7,7 @@ import { I18nProvider } from "@/lib/i18n/client";
 import { getLocale } from "@/lib/i18n/server";
 import "./globals.css";
 
-const NAME = "International Summer Schools in Baku";
+const NAME = "International Summer School";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = DICTIONARIES[await getLocale()];

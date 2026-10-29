@@ -7,7 +7,7 @@ export function Logo() {
       <span>
         International
         <br />
-        Summer Schools in Baku
+        Summer School
       </span>
     </Link>
   );
