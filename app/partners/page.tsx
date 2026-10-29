@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getT } from "@/lib/i18n/server";
 import { TIERS, type Tier } from "@/lib/schools";
 import { PartnerForm } from "./PartnerForm";
-import { Sky } from "@/components/Sky";
 
 export async function generateMetadata(): Promise<Metadata> {
   return { title: (await getT()).nav.partners };
@@ -17,7 +16,6 @@ export default async function Partners({ searchParams }: { searchParams: Promise
   return (
     <>
       <section className="hero">
-        <Sky />
         <div className="wrap hero-inner">
           <span className="pill gold">{t.badge}</span>
           <h1>{t.title}</h1>

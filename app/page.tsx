@@ -6,7 +6,6 @@ import { listSchools } from "@/lib/data";
 import { DICTIONARIES } from "@/lib/i18n";
 import { getLocale } from "@/lib/i18n/server";
 import { COUNTRIES, DURATIONS, localText, matches, parseSearch } from "@/lib/schools";
-import { Sky } from "@/components/Sky";
 
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
   const locale = await getLocale();
@@ -17,15 +16,13 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
   const premium = all.filter((s) => s.tier === "premium");
   const filtered = search.age !== null || search.duration !== "all" || search.country !== "all" || search.month !== null;
   const countries = COUNTRIES.filter((c) => c !== "other");
+  const heroPhoto = (premium.find((s) => s.main_photo) ?? all.find((s) => s.main_photo))?.main_photo;
 
   return (
     <>
       <section className="hero home-hero">
-        <Sky />
-                <div className="hero-flags" aria-hidden="true">
-          {countries.map((c) => (
-            <Flag key={c} country={c} size={64} className={`float f-${c}`} />
-          ))}
+        <div className="hero-art" aria-hidden="true">
+          {heroPhoto ? <img src={heroPhoto} alt="" /> : <img src="/logo-mark.png" alt="" className="hero-logo" />}
         </div>
         <div className="wrap hero-inner">
           <span className="pill gold">{t.home.badge}</span>
