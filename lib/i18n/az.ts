@@ -143,6 +143,28 @@ const az = {
     errContact: "Şirkətin adını və əlaqə telefonunu yazın.",
     cta: "Məlumatları özünüz doldurun",
   },
+  about: {
+    eyebrow: "Haqqımızda",
+    title: "27 ildir uşaqlara dünyanı açırıq",
+    lead: "International Summer Schools 27 ildən artıqdır Azərbaycanda və xaricdə yay məktəbləri təşkil edir. Uşaqlar və yeniyetmələr üçün dil, elm və mədəniyyət proqramları seçir, valideynlərə hər addımda kömək edirik.",
+    storyTitle: "Bizim yolumuz",
+    story: [
+      "Məqsədimiz sadədir: Azərbaycan uşaqları dünyanı görsün, yeni dil öyrənsin, fərqli mədəniyyətlərdən dostlar qazansın və özünə inam qazanaraq evə qayıtsın.",
+      "Hər proqramı şəxsən tanıyırıq: məktəbləri, müəllimləri, yaşayış şəraitini və marşrutları. Valideynlərə yalnız özümüzün yoxladığımız və etibar etdiyimiz proqramları təklif edirik.",
+      "Sənədlərin hazırlanmasından vizaya, uçuşdan qayıdışa qədər ailənin yanındayıq. Qruplar Bakıdan qrup rəhbəri ilə yola düşür.",
+    ],
+    valuesTitle: "Bizim dəyərlərimiz",
+    values: [
+      { title: "Etibar", text: "27 il ərzində qazandığımız ən böyük dəyər valideynlərin bizə olan inamıdır." },
+      { title: "Şəxsi yanaşma", text: "Hər uşağın yaşına, marağına və dil səviyyəsinə uyğun proqram seçirik." },
+      { title: "Təhlükəsizlik", text: "Etibarlı tərəfdaşlar, sığorta və bütün səfər boyu nəzarət." },
+      { title: "Şəffaflıq", text: "Qiymətə nə daxildir və nə daxil deyil, hamısı əvvəlcədən yazılır." },
+    ],
+    destinationsTitle: "İstiqamətlərimiz",
+    ctaTitle: "Uşağınız üçün proqram seçək?",
+    ctaText: "Zəng edin və ya WhatsApp-da yazın, sizə ən uyğun yay məktəbini birlikdə seçək.",
+    ctaSchools: "Proqramlara baxın",
+  },
   footer: {
     phone: "Telefon",
     sections: "Bölmələr",

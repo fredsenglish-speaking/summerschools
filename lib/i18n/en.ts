@@ -145,6 +145,28 @@ const en: Dictionary = {
     errContact: "Enter the company name and a contact phone number.",
     cta: "Fill in the details yourself",
   },
+  about: {
+    eyebrow: "About us",
+    title: "Opening the world to children for 27 years",
+    lead: "International Summer Schools has organised summer schools in Azerbaijan and abroad for more than 27 years. We choose language, science and culture programmes for children and teenagers, and help parents at every step.",
+    storyTitle: "Our story",
+    story: [
+      "Our aim is simple: for children from Azerbaijan to see the world, learn a new language, make friends from other cultures and come home more confident.",
+      "We know every programme personally: the schools, the teachers, the accommodation and the routes. We only offer parents programmes we have checked and trust ourselves.",
+      "From documents and visas to the flight there and back, we stay with the family. Groups fly out of Baku with a group leader.",
+    ],
+    valuesTitle: "Our values",
+    values: [
+      { title: "Trust", text: "The greatest thing we have earned in 27 years is the trust of parents." },
+      { title: "Personal approach", text: "We match each child's age, interests and language level to the right programme." },
+      { title: "Safety", text: "Reliable partners, insurance and supervision throughout the trip." },
+      { title: "Transparency", text: "What is and isn't included in the price is written down in advance." },
+    ],
+    destinationsTitle: "Our destinations",
+    ctaTitle: "Shall we choose a programme for your child?",
+    ctaText: "Call us or write on WhatsApp and we'll find the summer school that suits you best.",
+    ctaSchools: "See programmes",
+  },
   footer: {
     phone: "Phone",
     sections: "Sections",
