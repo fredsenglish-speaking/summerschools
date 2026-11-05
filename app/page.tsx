@@ -92,7 +92,16 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
           <Carousel label={t.school.recommended}>
             {premium.map((banner) => (
               <Link key={banner.id} href={`/schools/${banner.slug}`} className="banner" data-country={banner.country}>
-                {banner.main_photo ? <img src={banner.main_photo} alt="" /> : <FlagCover country={banner.country} name="" />}
+                <div className="banner-media">
+                  {banner.main_photo ? (
+                    <>
+                      <img src={banner.main_photo} alt="" className="banner-blur" aria-hidden="true" />
+                      <img src={banner.main_photo} alt="" className="banner-poster" />
+                    </>
+                  ) : (
+                    <FlagCover country={banner.country} name="" />
+                  )}
+                </div>
                 <div className="banner-text">
                   <span className="pill gold">{t.school.recommended}</span>
                   <h2>{localText(banner, locale).title}</h2>
