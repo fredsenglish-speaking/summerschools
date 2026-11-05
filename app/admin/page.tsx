@@ -74,7 +74,7 @@ export default async function Admin() {
           </Link>
         </div>
         <p className="muted small">
-          {a.submitLink} <Link href="/submit">summerschools.vercel.app/submit</Link>
+          {a.submitLink} <Link href="/submit">international-summerschools.com/submit</Link>
         </p>
         {!schools?.length ? (
           <p className="muted">{a.noSchools}</p>
