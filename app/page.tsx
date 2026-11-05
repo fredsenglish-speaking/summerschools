@@ -5,7 +5,7 @@ import { SchoolCard, priceLabel } from "@/components/SchoolCard";
 import { listSchools } from "@/lib/data";
 import { DICTIONARIES } from "@/lib/i18n";
 import { getLocale } from "@/lib/i18n/server";
-import { COUNTRIES, DURATIONS, localText, matches, parseSearch } from "@/lib/schools";
+import { COUNTRIES, localText, matches, parseSearch } from "@/lib/schools";
 
 const WHY_ICONS = {
   globe: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3c-2.5 2.6-3.8 5.6-3.8 9s1.3 6.4 3.8 9",
@@ -46,16 +46,6 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
             <label>
               <span>{t.home.age}</span>
               <input type="number" name="age" min={1} max={99} placeholder={t.home.agePlaceholder} defaultValue={search.age ?? ""} />
-            </label>
-            <label>
-              <span>{t.home.duration}</span>
-              <select name="duration" defaultValue={search.duration}>
-                {DURATIONS.map((d) => (
-                  <option key={d} value={d}>
-                    {t.home.durations[d]}
-                  </option>
-                ))}
-              </select>
             </label>
             <label>
               <span>{t.home.month}</span>
