@@ -25,6 +25,8 @@ export type LocalText = {
   transfer: string;
   included: string[];
   excluded: string[];
+  /** This language's own poster; when empty the main photo is shown. */
+  photo?: string;
 };
 
 export const TEXT_FIELDS = ["title", "city", "sessions", "description", "meals", "room", "excursions", "transfer"] as const;
@@ -74,6 +76,11 @@ export function localText(school: Pick<School, "i18n">, locale: Locale): LocalTe
   for (const f of TEXT_FIELDS) out[f] = pick(f, "");
   for (const f of LIST_FIELDS) out[f] = pick(f, []);
   return out;
+}
+
+/** The poster for this language, else the main photo. */
+export function photoFor(school: Pick<School, "main_photo" | "i18n">, locale: Locale): string | null {
+  return school.i18n?.[locale]?.photo || school.main_photo;
 }
 
 /** Published, and the paid placement (if any) has not run out. */

@@ -220,6 +220,8 @@ const en: Dictionary = {
       paidUntil: "Last day on the site (empty = no end)",
       months: "Months it runs (for the “Month” search)",
       photos: "Photos",
+      langPhoto: (name: string) => `Poster: ${name} version`,
+      langPhotoHint: "Shown instead of the main photo when this language is chosen. If empty, the main photo is shown.",
       mainPhoto: "Main photo",
       gallery: "Gallery",
       upload: "Choose photo",

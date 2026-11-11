@@ -43,6 +43,8 @@ export function readSchoolForm(form: FormData, t: Dictionary): { row: SchoolRow 
       const list = linesToList(str(form, `${l}.${f}`, 3000));
       if (list.length) text[f] = list;
     }
+    const photo = str(form, `${l}.photo`, 500);
+    if (l !== "az" && photo.startsWith("https://")) text.photo = photo;
     i18n[l] = text;
   }
   const title = i18n.az.title || i18n.en.title || i18n.ru.title || "";

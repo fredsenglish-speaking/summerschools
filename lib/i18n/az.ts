@@ -218,6 +218,8 @@ const az = {
       paidUntil: "Saytda son gün (boş = müddətsiz)",
       months: "Hansı aylarda keçirilir (axtarışda «Ay» seçimi üçün)",
       photos: "Şəkillər",
+      langPhoto: (name: string) => `Poster: ${name} versiyası`,
+      langPhotoHint: "Bu dil seçiləndə əsas şəkil əvəzinə göstərilir. Boş qalsa, əsas şəkil görünür.",
       mainPhoto: "Əsas şəkil",
       gallery: "Qalereya",
       upload: "Şəkil seç",

@@ -5,7 +5,7 @@ import { SchoolCard, priceLabel } from "@/components/SchoolCard";
 import { listSchools } from "@/lib/data";
 import { DICTIONARIES } from "@/lib/i18n";
 import { getLocale } from "@/lib/i18n/server";
-import { COUNTRIES, localText, matches, parseSearch } from "@/lib/schools";
+import { COUNTRIES, localText, photoFor, matches, parseSearch } from "@/lib/schools";
 
 const WHY_ICONS = {
   globe: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3c-2.5 2.6-3.8 5.6-3.8 9s1.3 6.4 3.8 9",
@@ -83,10 +83,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
             {premium.map((banner) => (
               <Link key={banner.id} href={`/schools/${banner.slug}`} className="banner" data-country={banner.country}>
                 <div className="banner-media">
-                  {banner.main_photo ? (
+                  {photoFor(banner, locale) ? (
                     <>
-                      <img src={banner.main_photo} alt="" className="banner-blur" aria-hidden="true" />
-                      <img src={banner.main_photo} alt="" className="banner-poster" />
+                      <img src={photoFor(banner, locale)!} alt="" className="banner-blur" aria-hidden="true" />
+                      <img src={photoFor(banner, locale)!} alt="" className="banner-poster" />
                     </>
                   ) : (
                     <FlagCover country={banner.country} name="" />

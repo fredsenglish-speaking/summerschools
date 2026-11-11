@@ -8,7 +8,7 @@ import { getContact } from "@/lib/contact";
 import { getSchoolBySlug } from "@/lib/data";
 import { DICTIONARIES } from "@/lib/i18n";
 import { getLocale } from "@/lib/i18n/server";
-import { isFeatured, linesToList, localText } from "@/lib/schools";
+import { isFeatured, linesToList, localText, photoFor } from "@/lib/schools";
 import { whatsappLink } from "@/lib/whatsapp";
 import { InquiryForm } from "./InquiryForm";
 
@@ -59,7 +59,7 @@ export default async function SchoolPage({ params }: Props) {
       </nav>
 
       <div className="school-photo" data-country={school.country}>
-        {school.main_photo ? <img src={school.main_photo} alt={text.title} /> : <FlagCover country={school.country} name={t.countries[school.country]} />}
+        {photoFor(school, locale) ? <img src={photoFor(school, locale)!} alt={text.title} /> : <FlagCover country={school.country} name={t.countries[school.country]} />}
         {isFeatured(school) && <span className="pill gold">{t.school.recommended}</span>}
       </div>
 

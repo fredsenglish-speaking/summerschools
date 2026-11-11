@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Flag, FlagCover } from "@/components/Flag";
 import { DICTIONARIES, type Locale } from "@/lib/i18n";
 import { formatPrice } from "@/lib/format";
-import { isFeatured, localText, type School } from "@/lib/schools";
+import { isFeatured, localText, photoFor, type School } from "@/lib/schools";
 
 export function priceLabel(school: School, locale: Locale): string {
   const t = DICTIONARIES[locale];
@@ -16,7 +16,7 @@ export function SchoolCard({ school, locale }: { school: School; locale: Locale 
   return (
     <Link href={`/schools/${school.slug}`} className="card">
       <div className="card-photo" data-country={school.country}>
-        {school.main_photo ? <img src={school.main_photo} alt="" loading="lazy" /> : <FlagCover country={school.country} name={t.countries[school.country]} />}
+        {photoFor(school, locale) ? <img src={photoFor(school, locale)!} alt="" loading="lazy" /> : <FlagCover country={school.country} name={t.countries[school.country]} />}
         {isFeatured(school) && <span className="pill gold">{t.school.recommended}</span>}
       </div>
       <div className="card-body">

@@ -54,6 +54,7 @@ export function SchoolForm({ school, public: isPublic = false }: { school?: Scho
   const upload = isPublic ? uploadSubmissionPhoto : uploadPhoto;
   const [mainPhoto, setMainPhoto] = useState(school?.main_photo ?? "");
   const [gallery, setGallery] = useState<string[]>(school?.gallery ?? []);
+  const [langPhotos, setLangPhotos] = useState<Record<string, string>>({ ru: school?.i18n?.ru?.photo ?? "", en: school?.i18n?.en?.photo ?? "" });
 
   if (state.ok) return <p className="notice ok">{tAll.submit.sent}</p>;
 
@@ -81,6 +82,8 @@ export function SchoolForm({ school, public: isPublic = false }: { school?: Scho
       {school && <input type="hidden" name="id" value={school.id} />}
       <input type="hidden" name="main_photo" value={mainPhoto} />
       <input type="hidden" name="gallery" value={JSON.stringify(gallery)} />
+      <input type="hidden" name="ru.photo" value={langPhotos.ru} />
+      <input type="hidden" name="en.photo" value={langPhotos.en} />
 
       <fieldset>
         <legend>{t.basics}</legend>
@@ -184,6 +187,23 @@ export function SchoolForm({ school, public: isPublic = false }: { school?: Scho
           )}
           <PhotoPicker multiple={false} upload={upload} onAdd={(urls) => setMainPhoto(urls[0])} />
         </div>
+        {(["ru", "en"] as const).map((l) => (
+          <div key={l} className="stack tight">
+            <b>{t.langPhoto(DICTIONARIES[l].langName)}</b>
+            <span className="muted small">{t.langPhotoHint}</span>
+            {langPhotos[l] && (
+              <div className="thumbs">
+                <figure>
+                  <img src={langPhotos[l]} alt="" />
+                  <button type="button" className="link" onClick={() => setLangPhotos((p) => ({ ...p, [l]: "" }))}>
+                    {t.remove}
+                  </button>
+                </figure>
+              </div>
+            )}
+            <PhotoPicker multiple={false} upload={upload} onAdd={(urls) => setLangPhotos((p) => ({ ...p, [l]: urls[0] }))} />
+          </div>
+        ))}
         <div className="stack tight">
           <b>{t.gallery}</b>
           {gallery.length > 0 && (
