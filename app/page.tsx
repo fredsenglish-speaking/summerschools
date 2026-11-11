@@ -79,7 +79,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 
       {premium.length > 0 && !filtered && (
         <section className="wrap section">
-          <Carousel label={t.school.recommended}>
+          <Carousel label={t.school.recommended} thumbs={premium.map((b) => ({ src: photoFor(b, locale), title: localText(b, locale).title }))}>
             {premium.map((banner) => (
               <Link key={banner.id} href={`/schools/${banner.slug}`} className="banner" data-country={banner.country}>
                 <div className="banner-media">

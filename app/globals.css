@@ -438,3 +438,12 @@ main { position: relative; }
   .carousel .dots { bottom: 14px; right: 18px; }
   .carousel .car-arrow { width: 38px; height: 38px; font-size: 24px; margin-top: -19px; top: 40%; }
 }
+
+/* Strip of every premium school under the slider */
+.car-thumbs { display: flex; gap: 14px; margin-top: 16px; overflow-x: auto; padding: 4px 2px 8px; scrollbar-width: thin; }
+.car-thumbs button { flex: 1 0 180px; max-width: 280px; display: flex; flex-direction: column; gap: 6px; padding: 6px; border-radius: 16px; border: 1px solid rgba(201, 164, 92, 0.35); background: rgba(255, 255, 255, 0.55); cursor: pointer; text-align: left; transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s; }
+.car-thumbs button:hover { transform: translateY(-2px); }
+.car-thumbs button.on { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(201, 164, 92, 0.55), 0 10px 24px rgba(13, 40, 60, 0.15); }
+.car-thumbs img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 11px; display: block; }
+.car-thumbs span { font-family: var(--display); font-size: 15px; color: var(--navy); padding: 0 4px 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 600px) { .car-thumbs button { flex-basis: 140px; } .car-thumbs span { font-size: 13px; } }
