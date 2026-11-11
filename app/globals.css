@@ -447,3 +447,9 @@ main { position: relative; }
 .car-thumbs img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 11px; display: block; }
 .car-thumbs span { font-family: var(--display); font-size: 15px; color: var(--navy); padding: 0 4px 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 600px) { .car-thumbs button { flex-basis: 140px; } .car-thumbs span { font-size: 13px; } }
+
+/* Show the whole poster on cards and school pages; a blurred copy fills the edges */
+.card-photo img.photo-blur, .school-photo img.photo-blur { position: absolute; inset: -24px; width: calc(100% + 48px); height: calc(100% + 48px); object-fit: cover; filter: blur(22px) brightness(0.8) saturate(1.1); transform: none !important; }
+.card-photo img.photo-fit, .school-photo img.photo-fit { position: relative; object-fit: contain; }
+.card:hover .card-photo img.photo-fit { transform: scale(1.02); }
+.car-thumbs img { object-fit: contain; background: #0d2a3c; }

@@ -59,7 +59,12 @@ export default async function SchoolPage({ params }: Props) {
       </nav>
 
       <div className="school-photo" data-country={school.country}>
-        {photoFor(school, locale) ? <img src={photoFor(school, locale)!} alt={text.title} /> : <FlagCover country={school.country} name={t.countries[school.country]} />}
+        {photoFor(school, locale) ? (
+          <>
+            <img src={photoFor(school, locale)!} alt="" className="photo-blur" aria-hidden="true" />
+            <img src={photoFor(school, locale)!} alt={text.title} className="photo-fit" />
+          </>
+        ) : <FlagCover country={school.country} name={t.countries[school.country]} />}
         {isFeatured(school) && <span className="pill gold">{t.school.recommended}</span>}
       </div>
 

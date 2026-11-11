@@ -16,7 +16,12 @@ export function SchoolCard({ school, locale }: { school: School; locale: Locale 
   return (
     <Link href={`/schools/${school.slug}`} className="card">
       <div className="card-photo" data-country={school.country}>
-        {photoFor(school, locale) ? <img src={photoFor(school, locale)!} alt="" loading="lazy" /> : <FlagCover country={school.country} name={t.countries[school.country]} />}
+        {photoFor(school, locale) ? (
+          <>
+            <img src={photoFor(school, locale)!} alt="" loading="lazy" className="photo-blur" aria-hidden="true" />
+            <img src={photoFor(school, locale)!} alt="" loading="lazy" className="photo-fit" />
+          </>
+        ) : <FlagCover country={school.country} name={t.countries[school.country]} />}
         {isFeatured(school) && <span className="pill gold">{t.school.recommended}</span>}
       </div>
       <div className="card-body">
