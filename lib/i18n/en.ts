@@ -198,6 +198,8 @@ const en: Dictionary = {
     expired: "Expired",
     own: "My school",
     submitted: "New submission",
+    translateAll: "Translate all schools into the other languages",
+    translated: "Done: missing translations were filled in.",
     submitLink: "Send this form to organisers:",
     form: {
       newTitle: "New summer school",

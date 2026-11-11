@@ -196,6 +196,8 @@ const az = {
     expired: "Müddəti bitib",
     own: "Öz məktəbim",
     submitted: "Yeni təklif",
+    translateAll: "Bütün məktəbləri RU və EN dillərinə tərcümə et",
+    translated: "Hazırdır: boş qalan tərcümələr dolduruldu.",
     submitLink: "Formu təşkilatçıya göndərin:",
     form: {
       newTitle: "Yeni yay məktəbi",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Flag } from "@/components/Flag";
+import { SubmitButton } from "@/components/SubmitButton";
 import { requireAdmin } from "@/lib/auth";
 import { bakuToday } from "@/lib/format";
 import { DICTIONARIES, INTL_LOCALE } from "@/lib/i18n";
@@ -8,7 +9,7 @@ import { getLocale } from "@/lib/i18n/server";
 import { createClient } from "@/lib/supabase/server";
 import { isListed, localText, type School } from "@/lib/schools";
 import { whatsappDigits } from "@/lib/whatsapp";
-import { markHandled } from "./actions";
+import { markHandled, translateAll } from "./actions";
 
 export const metadata: Metadata = { robots: { index: false } };
 
@@ -47,7 +48,7 @@ function HandledButton({ id, table, label }: { id: string; table: string; label:
   );
 }
 
-export default async function Admin() {
+export default async function Admin({ searchParams }: { searchParams: Promise<{ translated?: string }> }) {
   await requireAdmin();
   const locale = await getLocale();
   const t = DICTIONARIES[locale];
@@ -58,6 +59,7 @@ export default async function Admin() {
     supabase.from("inquiries").select("*").order("handled").order("created_at", { ascending: false }).limit(200),
     supabase.from("partner_requests").select("*").order("handled").order("created_at", { ascending: false }).limit(100),
   ]);
+  const translated = (await searchParams).translated === "1";
   const today = bakuToday();
   const when = (iso: string) =>
     new Date(iso).toLocaleString(INTL_LOCALE[locale], { timeZone: "Asia/Baku", dateStyle: "medium", timeStyle: "short" });
@@ -76,6 +78,10 @@ export default async function Admin() {
         <p className="muted small">
           {a.submitLink} <Link href="/submit">international-summerschools.com/submit</Link>
         </p>
+        <form action={translateAll} className="row">
+          <SubmitButton className="btn ghost small">🌐 {a.translateAll}</SubmitButton>
+          {translated && <span className="muted small">✓ {a.translated}</span>}
+        </form>
         {!schools?.length ? (
           <p className="muted">{a.noSchools}</p>
         ) : (
