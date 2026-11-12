@@ -6,6 +6,7 @@ const en: Dictionary = {
     description: "Summer schools for children in the USA, London, China, Europe, Turkey and Azerbaijan. Choose by age and length.",
   },
   nav: {
+    archive: "Photo archive",
     schools: "Schools",
     countries: "Countries",
     partners: "For organisers",
@@ -167,6 +168,16 @@ const en: Dictionary = {
     ctaText: "Call us or write on WhatsApp and we'll find the summer school that suits you best.",
     ctaSchools: "See programmes",
   },
+  archive: {
+    title: "Photo archive",
+    lead: "Memories from our past camps and summer schools. Each album has the programme poster and photos of our students.",
+    ended: "Held",
+    photos: (n: number) => (n ? `${n} photos` : "Photos coming soon"),
+    soon: "Photos for this album will be added soon.",
+    back: "All albums",
+    empty: "The archive is empty for now. Programmes appear here after they end.",
+    cta: "See current programmes",
+  },
   footer: {
     phone: "Phone",
     sections: "Sections",
@@ -217,7 +228,7 @@ const en: Dictionary = {
       organizer: "Organiser (leave empty for your own school)",
       organizerContact: "Contact: name, phone, email",
       tier: "Plan",
-      paidUntil: "Last day on the site (empty = no end)",
+      paidUntil: "Last day on the site (empty = no end). After this day the programme moves to the Photo archive.",
       months: "Months it runs (for the “Month” search)",
       photos: "Photos",
       langPhoto: (name: string) => `Poster: ${name} version`,

@@ -20,3 +20,20 @@ export async function getSchoolBySlug(slug: string): Promise<School | null> {
   const school = data as School | null;
   return school && isListed(school, bakuToday()) ? school : null;
 }
+
+/** Past programmes: published, and their last day on the site has passed. Newest first. They become the photo archive. */
+export async function listArchive(): Promise<School[]> {
+  if (!SUPABASE_URL) return [];
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("schools")
+    .select("*")
+    .eq("published", true)
+    .lt("paid_until", bakuToday())
+    .order("paid_until", { ascending: false });
+  return (data ?? []) as School[];
+}
+
+export async function getArchiveBySlug(slug: string): Promise<School | null> {
+  return (await listArchive()).find((s) => s.slug === slug) ?? null;
+}

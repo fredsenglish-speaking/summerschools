@@ -4,6 +4,7 @@ const az = {
     description: "ABŞ, London, Çin, Avropa, Türkiyə və Azərbaycanda uşaqlar üçün yay məktəbləri. Yaşa və müddətə görə seçin.",
   },
   nav: {
+    archive: "Foto arxiv",
     schools: "Məktəblər",
     countries: "Ölkələr",
     partners: "Təşkilatçılar üçün",
@@ -165,6 +166,16 @@ const az = {
     ctaText: "Zəng edin və ya WhatsApp-da yazın, sizə ən uyğun yay məktəbini birlikdə seçək.",
     ctaSchools: "Proqramlara baxın",
   },
+  archive: {
+    title: "Foto arxiv",
+    lead: "Keçirdiyimiz düşərgə və yay məktəblərindən xatirələr. Hər albomda proqramın posteri və uşaqlarımızın fotoları var.",
+    ended: "Keçirilib",
+    photos: (n: number) => (n ? `${n} foto` : "Fotolar tezliklə"),
+    soon: "Bu albomun fotoları tezliklə əlavə olunacaq.",
+    back: "Bütün albomlar",
+    empty: "Arxiv hələ boşdur. Proqramlar bitəndən sonra burada görünəcək.",
+    cta: "İndiki proqramlara baxın",
+  },
   footer: {
     phone: "Telefon",
     sections: "Bölmələr",
@@ -215,7 +226,7 @@ const az = {
       organizer: "Təşkilatçı (öz məktəbinizsə boş saxlayın)",
       organizerContact: "Əlaqə: ad, telefon, e-poçt",
       tier: "Tarif",
-      paidUntil: "Saytda son gün (boş = müddətsiz)",
+      paidUntil: "Saytda son gün (boş = müddətsiz). Bu gündən sonra proqram Foto arxivə keçir.",
       months: "Hansı aylarda keçirilir (axtarışda «Ay» seçimi üçün)",
       photos: "Şəkillər",
       langPhoto: (name: string) => `Poster: ${name} versiyası`,

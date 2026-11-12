@@ -21,6 +21,7 @@ export async function Header() {
           <Link href="/#schools">{t.nav.schools}</Link>
           <Link href="/#countries">{t.nav.countries}</Link>
           <Link href="/partners">{t.nav.partners}</Link>
+          <Link href="/archive">{t.nav.archive}</Link>
           <Link href="/about">{t.nav.about}</Link>
           <Link href="#contact">{t.nav.contact}</Link>
           {isAdmin && <Link href="/admin">{t.nav.admin}</Link>}
