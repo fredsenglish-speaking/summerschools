@@ -210,7 +210,7 @@ const en: Dictionary = {
     own: "My school",
     submitted: "New submission",
     translateAll: "Translate all schools into the other languages",
-    translated: "Done: missing translations were filled in.",
+    translated: (n: number) => (n ? `Done: ${n} fields translated.` : "No empty fields to translate."),
     submitLink: "Send this form to organisers:",
     form: {
       newTitle: "New summer school",

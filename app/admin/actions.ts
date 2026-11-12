@@ -54,10 +54,15 @@ export async function translateAll() {
   await requireAdmin();
   const supabase = await createClient();
   const { data } = await supabase.from("schools").select("id, i18n");
+  let total = 0;
   for (const s of (data ?? []) as Pick<School, "id" | "i18n">[]) {
     const i18n = s.i18n ?? {};
-    if ((await fillTranslations(i18n)) > 0) await supabase.from("schools").update({ i18n }).eq("id", s.id);
+    const n = await fillTranslations(i18n);
+    if (n > 0) {
+      const { error } = await supabase.from("schools").update({ i18n }).eq("id", s.id);
+      if (!error) total += n;
+    }
   }
   revalidatePath("/", "layout");
-  redirect("/admin?translated=1");
+  redirect(`/admin?translated=${total}`);
 }

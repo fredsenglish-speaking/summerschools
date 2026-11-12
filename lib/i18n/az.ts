@@ -208,7 +208,7 @@ const az = {
     own: "Öz məktəbim",
     submitted: "Yeni təklif",
     translateAll: "Bütün məktəbləri RU və EN dillərinə tərcümə et",
-    translated: "Hazırdır: boş qalan tərcümələr dolduruldu.",
+    translated: (n: number) => (n ? `Hazırdır: ${n} xana tərcümə olundu.` : "Tərcümə ediləcək boş xana tapılmadı."),
     submitLink: "Formu təşkilatçıya göndərin:",
     form: {
       newTitle: "Yeni yay məktəbi",

@@ -59,7 +59,8 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
     supabase.from("inquiries").select("*").order("handled").order("created_at", { ascending: false }).limit(200),
     supabase.from("partner_requests").select("*").order("handled").order("created_at", { ascending: false }).limit(100),
   ]);
-  const translated = (await searchParams).translated === "1";
+  const translatedParam = (await searchParams).translated;
+  const translated = translatedParam === undefined ? null : Number(translatedParam) || 0;
   const today = bakuToday();
   const when = (iso: string) =>
     new Date(iso).toLocaleString(INTL_LOCALE[locale], { timeZone: "Asia/Baku", dateStyle: "medium", timeStyle: "short" });
@@ -80,7 +81,7 @@ export default async function Admin({ searchParams }: { searchParams: Promise<{ 
         </p>
         <form action={translateAll} className="row">
           <SubmitButton className="btn ghost small">🌐 {a.translateAll}</SubmitButton>
-          {translated && <span className="muted small">✓ {a.translated}</span>}
+          {translated !== null && <span className="muted small">✓ {a.translated(translated)}</span>}
         </form>
         {!schools?.length ? (
           <p className="muted">{a.noSchools}</p>
