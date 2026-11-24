@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { GalleryItem } from "@/components/GalleryItem";
 import { getArchiveBySlug } from "@/lib/data";
 import { DICTIONARIES, INTL_LOCALE } from "@/lib/i18n";
 import { getLocale } from "@/lib/i18n/server";
@@ -45,9 +46,7 @@ export default async function Album({ params }: Props) {
           </a>
         )}
         {school.gallery.map((src) => (
-          <a key={src} href={src} target="_blank" rel="noreferrer">
-            <img src={src} alt="" loading="lazy" />
-          </a>
+          <GalleryItem key={src} src={src} />
         ))}
       </div>
       {school.gallery.length === 0 && <p className="empty">{t.archive.soon}</p>}

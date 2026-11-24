@@ -7,7 +7,10 @@ import { useT } from "@/lib/i18n/client";
 import { shrinkImage } from "@/lib/shrinkImage";
 import { COUNTRIES, CURRENCIES, LIST_FIELDS, TEXT_FIELDS, TIERS, type School } from "@/lib/schools";
 import { submitSchool, uploadSubmissionPhoto } from "@/app/submit/actions";
-import { saveSchool, uploadPhoto, type SaveState } from "./actions";
+import { prepareVideoUpload, saveSchool, uploadPhoto, type SaveState } from "./actions";
+import { createClient as createSupabase } from "@supabase/supabase-js";
+import { MAX_VIDEO_BYTES, isVideoLink, media } from "@/lib/media";
+import { SUPABASE_ANON_KEY, SUPABASE_URL } from "@/lib/supabase/url";
 
 type Upload = (form: FormData) => Promise<{ url?: string; error?: string }>;
 
@@ -41,6 +44,79 @@ function PhotoPicker({ multiple, upload, onAdd }: { multiple: boolean; upload: U
         {busy ? t.uploading : t.upload}
         <input type="file" accept="image/jpeg,image/png,image/webp" multiple={multiple} onChange={pick} disabled={busy} hidden />
       </label>
+      {error && <p className="notice err">{error}</p>}
+    </div>
+  );
+}
+
+/** Uploads videos straight from the browser to storage, or adds a YouTube / Instagram link. */
+function VideoPicker({ onAdd }: { onAdd: (urls: string[]) => void }) {
+  const t = useT().admin.form;
+  const [busy, setBusy] = useState("");
+  const [error, setError] = useState("");
+  const [link, setLink] = useState("");
+
+  async function pick(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files ?? []);
+    e.target.value = "";
+    if (!files.length) return;
+    setError("");
+    const urls: string[] = [];
+    const client = createSupabase(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { persistSession: false } });
+    for (const [n, file] of files.entries()) {
+      if (file.size > MAX_VIDEO_BYTES) {
+        setError(`${file.name}: ${t.videoTooBig}`);
+        continue;
+      }
+      setBusy(`${t.uploading} ${files.length > 1 ? `${n + 1}/${files.length}` : ""}`);
+      const ticket = await prepareVideoUpload(file.type || "video/mp4", file.size);
+      if (!ticket.path || !ticket.token || !ticket.url) {
+        setError(ticket.error ?? t.uploadFailed);
+        continue;
+      }
+      const { error: upErr } = await client.storage.from("school-videos").uploadToSignedUrl(ticket.path, ticket.token, file, { contentType: file.type || "video/mp4" });
+      if (upErr) setError(`${t.uploadFailed} ${upErr.message}`);
+      else urls.push(ticket.url);
+    }
+    setBusy("");
+    if (urls.length) onAdd(urls);
+  }
+
+  function addLink() {
+    const url = link.trim();
+    if (!url.startsWith("https://") || !isVideoLink(url)) {
+      setError(t.videoLinkBad);
+      return;
+    }
+    setError("");
+    setLink("");
+    onAdd([url]);
+  }
+
+  return (
+    <div className="stack tight">
+      <span className="muted small">{t.videoHint}</span>
+      <label className="btn ghost small file">
+        {busy || `🎬 ${t.addVideo}`}
+        <input type="file" accept="video/mp4,video/quicktime,video/webm,video/x-m4v" multiple onChange={pick} disabled={Boolean(busy)} hidden />
+      </label>
+      <div className="row">
+        <input
+          type="url"
+          value={link}
+          onChange={(e) => setLink(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              addLink();
+            }
+          }}
+          placeholder={`${t.videoLink}: https://youtu.be/…`}
+        />
+        <button type="button" className="btn ghost small" onClick={addLink}>
+          {t.videoLinkAdd}
+        </button>
+      </div>
       {error && <p className="notice err">{error}</p>}
     </div>
   );
@@ -210,7 +286,13 @@ export function SchoolForm({ school, public: isPublic = false }: { school?: Scho
             <div className="thumbs">
               {gallery.map((src) => (
                 <figure key={src}>
-                  <img src={src} alt="" />
+                  {media(src).kind === "image" ? (
+                    <img src={src} alt="" />
+                  ) : media(src).kind === "video" ? (
+                    <video src={`${src}#t=0.1`} className="vid" preload="metadata" muted />
+                  ) : (
+                    <span className="vid">▶ {(media(src) as { site: string }).site === "youtube" ? "YouTube" : "Instagram"}</span>
+                  )}
                   <button type="button" className="link" onClick={() => setGallery((g) => g.filter((x) => x !== src))}>
                     {t.remove}
                   </button>
@@ -220,6 +302,12 @@ export function SchoolForm({ school, public: isPublic = false }: { school?: Scho
           )}
           <PhotoPicker multiple upload={upload} onAdd={(urls) => setGallery((g) => [...g, ...urls])} />
         </div>
+        {!isPublic && (
+          <div className="stack tight">
+            <b>{t.videos}</b>
+            <VideoPicker onAdd={(urls) => setGallery((g) => [...g, ...urls])} />
+          </div>
+        )}
       </fieldset>
 
       <fieldset>

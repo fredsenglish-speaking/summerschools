@@ -11,6 +11,7 @@ import { getLocale } from "@/lib/i18n/server";
 import { isFeatured, linesToList, localText, photoFor } from "@/lib/schools";
 import { whatsappLink } from "@/lib/whatsapp";
 import { InquiryForm } from "./InquiryForm";
+import { GalleryItem } from "@/components/GalleryItem";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -125,9 +126,7 @@ export default async function SchoolPage({ params }: Props) {
               <h2>{t.school.gallery}</h2>
               <div className="gallery">
                 {school.gallery.map((src) => (
-                  <a key={src} href={src} target="_blank" rel="noreferrer">
-                    <img src={src} alt="" loading="lazy" />
-                  </a>
+                  <GalleryItem key={src} src={src} />
                 ))}
               </div>
             </div>

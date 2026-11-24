@@ -59,8 +59,8 @@ export function readSchoolForm(form: FormData, t: Dictionary): { row: SchoolRow 
 
   let gallery: string[] = [];
   try {
-    const parsed = JSON.parse(str(form, "gallery", 20000) || "[]");
-    if (Array.isArray(parsed)) gallery = parsed.filter((x): x is string => typeof x === "string" && x.startsWith("https://")).slice(0, 30);
+    const parsed = JSON.parse(str(form, "gallery", 100000) || "[]");
+    if (Array.isArray(parsed)) gallery = parsed.filter((x): x is string => typeof x === "string" && x.startsWith("https://")).slice(0, 300);
   } catch {
     gallery = [];
   }
